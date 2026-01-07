@@ -2,13 +2,50 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ExamPOG GI1 SPOT80</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Quiz Master Pro</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 </head>
 <body>
     <div class="quiz-container">
+        
+        <aside class="drawing-sidebar">
+            <div class="tool-group">
+                <button onclick="setTool('pen')" id="penBtn" title="Pen"><i class="fas fa-pen"></i></button>
+                <div class="tool-settings-trigger" onclick="toggleSettings('penSettings')">⋮</div>
+                
+                <div id="penSettings" class="settings-popup hidden">
+                    <label>Pen Thickness</label>
+                    <input type="range" min="1" max="20" value="3" oninput="updateSettings('penSize', this.value)">
+                    
+                    <label>RGB Color</label>
+                    <div class="color-picker-wrapper">
+                        <input type="color" id="nativeColorPicker" value="#000000" onchange="setColor(this.value)">
+                        <span class="color-label">Tap to choose</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tool-group">
+                <button onclick="setTool('eraser')" id="eraserBtn" title="Eraser"><i class="fas fa-eraser"></i></button>
+                <div class="tool-settings-trigger" onclick="toggleSettings('eraserSettings')">⋮</div>
+                
+                <div id="eraserSettings" class="settings-popup hidden">
+                    <label>Eraser Type</label>
+                    <div class="mode-select">
+                        <button id="modePrecision" class="active" onclick="setEraserMode('precision')">Pixel</button>
+                        <button id="modeStroke" onclick="setEraserMode('stroke')">Object</button>
+                    </div>
+                    <label>Size</label>
+                    <input type="range" min="5" max="50" value="20" oninput="updateSettings('eraserSize', this.value)">
+                </div>
+            </div>
+
+            <button onclick="clearAllStrokes()" class="btn-clear" title="Clear Page"><i class="fas fa-trash-can"></i></button>
+        </aside>
+
         <header class="nav-bar">
             <button class="btn-star" id="starBtn" onclick="toggleStar()">★</button>
             <div id="progress" class="progress-info" onclick="toggleGrid()">Loading...</div>
@@ -20,32 +57,40 @@
 
         <div class="scroll-area" id="mainScroll">
             <div class="viewport">
-                <div class="canvas-wrapper"><canvas id="questionCanvas"></canvas></div>
+                <div class="canvas-wrapper">
+                    <canvas id="questionCanvas"></canvas>
+                    <canvas id="qDraw" class="draw-layer"></canvas>
+                </div>
             </div>
 
             <div id="answerSection" class="viewport hidden-viewport">
-                <p style="font-weight:bold; color:#e67e22; margin:15px 0 5px 0;">Solution:</p>
-                <div class="canvas-wrapper"><canvas id="answerCanvas"></canvas></div>
+                <div class="answer-header">Solution</div>
+                <div class="canvas-wrapper">
+                    <canvas id="answerCanvas"></canvas>
+                    <canvas id="aDraw" class="draw-layer"></canvas>
+                </div>
             </div>
         </div>
 
         <footer class="controls">
-            <button class="btn-leak" id="leakBtn" onclick="toggleAnswer()">Leak Answer</button>
+            <button class="btn-leak" id="leakBtn" onclick="toggleAnswer()">Show Solution</button>
+            
             <div class="mode-buttons">
-                <button class="btn-mode" onclick="setMode('sequence')">Sequence</button>
-                <button class="btn-mode" onclick="setMode('random')">Shuffle</button>
+                <button class="btn-mode" onclick="setMode('sequence')"><i class="fas fa-list-ol"></i> Sequence</button>
+                <button class="btn-mode" onclick="setMode('random')"><i class="fas fa-shuffle"></i> Shuffle</button>
             </div>
         </footer>
 
         <div id="gridOverlay" class="overlay hidden">
             <div class="overlay-content">
-                <h3>Select Question</h3>
-                <table class="grid-table" id="gridTable"></table>
-                <button class="btn-close" onclick="toggleGrid()">Close</button>
+                <h2 style="text-align:center; margin-bottom:20px;">Question Navigator</h2>
+                <div class="grid-wrapper">
+                    <table class="grid-table" id="gridTable"></table>
+                </div>
+                <button class="btn-close-overlay" onclick="toggleGrid()">Close Menu</button>
             </div>
         </div>
     </div>
     <script src="script.js"></script>
 </body>
-
 </html>
