@@ -5,10 +5,14 @@ pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs
 const urlParams = new URLSearchParams(window.location.search);
 const qFile = urlParams.get('q') || 'default_quiz.pdf'; // Fallback if no file clicked
 const aFile = urlParams.get('a') || 'default_ans.pdf';
+const Subject = urlParams.get('s') ;
 
-const pdfFiles = { questions: "AC_GI/"+qFile, answers: "AC_GI/"+aFile };
+const pdfFiles = { questions: `AC_${Subject}/${Subject}_${qFile}.pdf`, answers: `AC_${Subject}/${Subject}_${qFile}.pdf` };
 let questionDoc = null, answerDoc = null, currentIndex = 0, totalQuizzes = 0;
 let displayOrder = [], starredItems = new Set();
+
+document.title=`ExamPOG ${Subject} ${qFile}`;
+
 
 // DRAWING VARIABLES
 let currentTool = 'none'; 
@@ -268,3 +272,5 @@ function buildGrid() {
 function toggleGrid() { document.getElementById('gridOverlay').classList.toggle('hidden'); }
 window.addEventListener('resize', renderQuiz);
 loadPDFs();
+
+// receive value from 

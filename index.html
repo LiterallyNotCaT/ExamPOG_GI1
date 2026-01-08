@@ -2,103 +2,104 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>ExamPOG GI1 SPOT80 </title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ExamPOG</title>
+    <link rel="stylesheet" href="Nav.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 </head>
 <body>
-    <div class="quiz-container">
-        
-        <aside class="drawing-sidebar">
-            <div class="tool-group">
-                <button onclick="setTool('pen')" id="penBtn" title="Pen"><i class="fas fa-pen"></i></button>
-                <div class="tool-settings-trigger" onclick="toggleSettings('penSettings')">⋮</div>
-                
-                <div id="penSettings" class="settings-popup hidden">
-                    <label>Pen Thickness</label>
-                    <input type="range" min="1" max="20" value="3" oninput="updateSettings('penSize', this.value)">
-                    
-                    <label>RGB Color</label>
-                    <div class="color-picker-wrapper">
-                        <input type="color" id="nativeColorPicker" value="#000000" onchange="setColor(this.value)">
-                        <span class="color-label">Tap to choose</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="tool-group">
-                <button onclick="setTool('eraser')" id="eraserBtn" title="Eraser"><i class="fas fa-eraser"></i></button>
-                <div class="tool-settings-trigger" onclick="toggleSettings('eraserSettings')">⋮</div>
-                
-                <div id="eraserSettings" class="settings-popup hidden">
-                    <label>Eraser Type</label>
-                    <div class="mode-select">
-                        <button id="modePrecision" class="active" onclick="setEraserMode('precision')">Pixel</button>
-                        <button id="modeStroke" onclick="setEraserMode('stroke')">Object</button>
-                    </div>
-                    <label>Size</label>
-                    <input type="range" min="5" max="50" value="20" oninput="updateSettings('eraserSize', this.value)">
-                </div>
-            </div>
-
-            <button onclick="clearAllStrokes()" class="btn-clear" title="Clear Page"><i class="fas fa-trash-can"></i></button>
-        </aside>
-
-        <header class="nav-bar">
-            <button class="btn-star" id="starBtn" onclick="toggleStar()">★</button>
-            <div id="progress" class="progress-info" onclick="toggleGrid()">Loading...</div>
-            <div class="nav-arrows">
-                <button class="btn-nav" onclick="prevQuiz()">❮</button>
-                <button class="btn-nav" onclick="nextQuiz()">❯</button>
-            </div>
-        </header>
-
-        <div class="scroll-area" id="mainScroll">
-            <div class="viewport">
-                <div class="canvas-wrapper">
-                    <canvas id="questionCanvas"></canvas>
-                    <canvas id="qDraw" class="draw-layer"></canvas>
-                </div>
-            </div>
-
-            <div id="answerSection" class="viewport hidden-viewport">
-                <div class="answer-header">Solution</div>
-                <div class="canvas-wrapper">
-                    <canvas id="answerCanvas"></canvas>
-                    <canvas id="aDraw" class="draw-layer"></canvas>
-                </div>
-            </div>
-        </div>
-
-        <footer class="controls">
-            <button class="btn-leak" id="leakBtn" onclick="toggleAnswer()">Leak Answer</button>
-            
-            <div class="mode-buttons">
-                <button class="btn-mode" onclick="setMode('sequence')"><i class="fas fa-list-ol"></i> Sequence</button>
-                <button class="btn-mode" onclick="setMode('random')"><i class="fas fa-shuffle"></i> Shuffle</button>
-            </div>
-            <!-- back btn -->
-            <div>
-              <button class="btn-back" onclick="window.location.href='GI.html'">
-              <i class="fas fa-chevron-left"></i> Back
-              </button>
-            </div>
-        </footer>
-
-        <div id="gridOverlay" class="overlay hidden">
-            <div class="overlay-content">
-                <h2 style="text-align:center; margin-bottom:20px;">Question Navigator</h2>
-                <div class="grid-wrapper">
-                    <table class="grid-table" id="gridTable"></table>
-                </div>
-                <button class="btn-close-overlay" onclick="toggleGrid()">Close Menu</button>
-            </div>
-        </div>
-    </div>
+    <div class="mesh-bg"></div>
     
-    <script src="script.js"></script>
-</body>
+    <header class="main-header">
+        <h1>ExamPOG</h1>
+        <p>AC Problems from Academic MDCU</p>
+    </header>
 
+    <main class="portal-container">
+        <div class="main-grid">
+            <section class="glass-card spot-card">
+                <div class="card-header">
+                    <i class="fas fa-eye"></i>
+                    <h2>YEAR 1/1</h2>
+                </div>
+                <div class="dynamic-button-grid">
+                    <button onclick="openSubject('BIOCHEM')">BIOCHEM</button>
+                    <button onclick="openSubject('MS I')">MS I</button>
+                    <button onclick="openSubject('NS I')">NS I</button>
+                    <button onclick="openSubject('CVS I')">CVS I</button>
+                    <button onclick="openSubject('RS I')">RS I</button>
+                </div>
+            </section>
+
+            <section class="glass-card spot-card">
+                <div class="card-header">
+                    <i class="fas fa-eye"></i>
+                    <h2>YEAR 1/2</h2>
+                </div>
+                <div class="dynamic-button-grid">
+                    <button onclick="openSubject('GI I')">GI I</button>
+                    <button onclick="openSubject('URI I')">URI I</button>
+                    <button onclick="openSubject('REPRO I')">REPRO I</button>
+                    <button onclick="openSubject('ENDO I')">ENDO I</button>
+                    <button onclick="openSubject('NS II')">NS II</button>
+                </div>
+            </section>
+            <section class="glass-card spot-card">
+                <div class="card-header">
+                    <i class="fas fa-eye"></i>
+                    <h2>YEAR 2/1</h2>
+                </div>
+                <div class="dynamic-button-grid">
+                    <button onclick="openSubject('GI_SPOT80Q.pdf', 'GI_SPOT80A.pdf')">GI I</button>
+                    <button onclick="openSubject('s2.pdf', 'sa2.pdf')">URI I</button>
+                    <button onclick="openSubject('s3.pdf', 'sa3.pdf')">REPRO I</button>
+                    <button onclick="openSubject('s4.pdf', 'sa4.pdf')">ENDO I</button>
+                    <button onclick="openSubject('s4.pdf', 'sa4.pdf')">NS II</button>
+                </div>
+            </section>
+            <section class="glass-card spot-card">
+                <div class="card-header">
+                    <i class="fas fa-eye"></i>
+                    <h2>YEAR 2/2</h2>
+                </div>
+                <div class="dynamic-button-grid">
+                    <button onclick="openSubject('GI_SPOT80Q.pdf', 'GI_SPOT80A.pdf')">GI I</button>
+                    <button onclick="openSubject('s2.pdf', 'sa2.pdf')">URI I</button>
+                    <button onclick="openSubject('s3.pdf', 'sa3.pdf')">REPRO I</button>
+                    <button onclick="openSubject('s4.pdf', 'sa4.pdf')">ENDO I</button>
+                    <button onclick="openSubject('s4.pdf', 'sa4.pdf')">NS II</button>
+                </div>
+            </section>
+            <section class="glass-card spot-card">
+                <div class="card-header">
+                    <i class="fas fa-eye"></i>
+                    <h2>YEAR 3/1</h2>
+                </div>
+                <div class="dynamic-button-grid">
+                    <button onclick="openSubject('GI_SPOT80Q.pdf', 'GI_SPOT80A.pdf')">GI I</button>
+                    <button onclick="openSubject('s2.pdf', 'sa2.pdf')">URI I</button>
+                    <button onclick="openSubject('s3.pdf', 'sa3.pdf')">REPRO I</button>
+                    <button onclick="openSubject('s4.pdf', 'sa4.pdf')">ENDO I</button>
+                    <button onclick="openSubject('s4.pdf', 'sa4.pdf')">NS II</button>
+                </div>
+            </section>
+            <section class="glass-card spot-card">
+                <div class="card-header">
+                    <i class="fas fa-eye"></i>
+                    <h2>YEAR 3/2</h2>
+                </div>
+                <div class="dynamic-button-grid">
+                    <button onclick="openSubject('GI_SPOT80Q.pdf', 'GI_SPOT80A.pdf')">GI I</button>
+                    <button onclick="openSubject('s2.pdf', 'sa2.pdf')">URI I</button>
+                    <button onclick="openSubject('s3.pdf', 'sa3.pdf')">REPRO I</button>
+                    <button onclick="openSubject('s4.pdf', 'sa4.pdf')">ENDO I</button>
+                    <button onclick="openSubject('s4.pdf', 'sa4.pdf')">NS II</button>
+                </div>
+            </section>
+        </div>
+
+    </main>
+
+    <script src="Nav.js"></script>
+</body>
 </html>
